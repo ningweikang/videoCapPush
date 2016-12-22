@@ -27,22 +27,60 @@ using namespace cv;
 
 
 
-int mainT(int argc, char* argv[]){
+
+class CaptureFFMPEG{
+public:
+    CaptureFFMPEG(string inputStreamAddress);
+    void readFrame();
+    void readFrame(int height, int width, int channels);
+
+private:
+    cv::VideoCapture videoCap;
+    cv::Mat image;
+
+};
+
+CaptureFFMPEG::CaptureFFMPEG(string inputStreamAddress){
     avcodec_register_all();
     av_register_all();
     avformat_network_init();
 
-
-    const std::string videoStreamAddress = "rtmp://202.117.124.80:9419/live1/room2";
-    //const std::string outputStreamAddress = "rtmp://202.117.124.80:9419/live1/room1";
-
-
-    cv::VideoCapture vcap;
-    if(!vcap.open(videoStreamAddress)){
+    if( !videoCap.open(inputStreamAddress) ){
         std::cout << "Fail: Error opening video stream or file" << std::endl;
-        return -1;
     } else {
-        cout << "OK: Open video succeed." << endl;
+        std::cout << "OK: Open video succeed." << std::endl;
+    }
+}
+
+void CaptureFFMPEG::readFrame(){
+    std::cout << "read frame" << std::endl;
+    if( !videoCap.read(image) ){
+            std::cout << "No frame" << std::endl;
+    }
+
+    return image;
+}
+
+
+void CaptureFFMPEG::readFrame(int height, int width, int channels){
+    std::cout << "Read frame in C++" << std::endl;
+}
+
+
+
+
+int main(int argc, char* argv[]){
+    const std::string videoStreamAddress = "rtmp://202.117.124.80:9419/live1/room2";
+
+
+    CaptureFFMPEG cap(videoStreamAddress);
+
+    cv::namedWindow("out");
+    while(true){
+        Mat tmp = cap.readFrame();
+        cv::imshow("out", tmp);
+
+        if(cv::waitKey(1) >= 0) break;
     }
 
 

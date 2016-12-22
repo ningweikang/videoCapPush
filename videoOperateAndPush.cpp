@@ -1,15 +1,10 @@
-
 #include<string>
 #include<iostream>
-
-
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 #include<opencv2/highgui/highgui.hpp>
 #include<opencv2/opencv.hpp>
-
-
 
 extern "C"{
 #include<libavcodec/avcodec.h>
@@ -20,25 +15,15 @@ extern "C"{
 #include<libavutil/mathematics.h>
 }
 
-
-
 static const AVPixelFormat sourcePixelFormat = AV_PIX_FMT_BGR24;
 static const AVPixelFormat destPixelFormat = AV_PIX_FMT_YUV420P;
 static const AVCodecID destCodec = AV_CODEC_ID_H264;
-
-
-
 
 using namespace std;
 using namespace cv;
 
 
-
-
-
-
 #define __STDC_CONSTANT_MACROS
-
 
 #define MY_PIX_FMT AV_PIX_FMT_YUV420P
 
@@ -55,7 +40,7 @@ extern "C"
 
 
 
-int main(int argc, char* argv[]){
+int main3(int argc, char* argv[]){
     avcodec_register_all();
     av_register_all();
     avformat_network_init();
