@@ -57,8 +57,6 @@ void CaptureFFMPEG::readFrame(){
     if( !videoCap.read(image) ){
             std::cout << "No frame" << std::endl;
     }
-
-    return image;
 }
 
 
@@ -69,7 +67,7 @@ void CaptureFFMPEG::readFrame(int height, int width, int channels){
 
 
 
-int main(int argc, char* argv[]){
+int main1(int argc, char* argv[]){
     const std::string videoStreamAddress = "rtmp://202.117.124.80:9419/live1/room2";
 
 
@@ -77,10 +75,7 @@ int main(int argc, char* argv[]){
 
     cv::namedWindow("out");
     while(true){
-        Mat tmp = cap.readFrame();
-        cv::imshow("out", tmp);
-
-        if(cv::waitKey(1) >= 0) break;
+        cap.readFrame();
     }
 
 
